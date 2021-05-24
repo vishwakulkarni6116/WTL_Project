@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,6 +8,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
+import {useHistory} from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +34,35 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [error,setError] = useState("");
+  const history = useHistory();
+
+  function handleSubmit(){
+    // console.log("hello");
+    // console.log("email"+email)
+    // console.log("pass"+ password)
+      axios.post("/users/signin",{
+        emailId:email,
+        password:password
+      })
+      .then(res=>{
+        if(res.data.success===true){
+          localStorage.setItem("user",JSON.stringify(res.data.user));
+          setError("");
+          // alert("succ"+res.data.user);
+          history.push('/');
+        }
+        else{
+          setError(res.data.err);
+          // alert("fail"+res.data.err);
+        }
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -54,6 +85,7 @@ export default function SignIn() {
               id="email"
               label="Email Address"
               name="email"
+              onChange={(e)=>setEmail(e.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -66,13 +98,16 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
+              onChange={(e)=>setPassword(e.target.value)}
               autoComplete="current-password"
             />
+            <p style={{color:"red"}}>{error}</p>
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               color="primary"
+              onClick={handleSubmit}
               className={classes.submit}
             >
               Sign In

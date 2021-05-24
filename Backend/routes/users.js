@@ -22,7 +22,7 @@ userRouter.route('/')
     .catch(err=>next(err))
 });
 
-userRouter.route('/signin')
+userRouter.route('/signup')
 .post((req,res,next)=>{
     console.log("req.body",req.body)
     newuser = new Users({
@@ -62,7 +62,7 @@ userRouter.route('/signin')
     
 })
 
-userRouter.route('/login')
+userRouter.route('/signin')
 .post((req,res,next)=>{
     console.log("req.body",req.body)
     
@@ -83,8 +83,18 @@ userRouter.route('/login')
         }
     })
     .catch(err=>{next(err)})
-
-    
 })
+
+userRouter.route('/:userId')
+.get((req,res,next)=>{
+    Users.findById(req.params.userId)
+    .then(users=>{
+        console.log(users)
+        res.statusCode=200
+        res.setHeader('Content-Type', 'application/json')
+        res.json(users)
+    })
+    .catch(err=>next(err))
+});
 
 module.exports = userRouter;

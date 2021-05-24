@@ -5,13 +5,26 @@ import NavBar1 from './components/NavBar1';
 import Login from './components/SignIn';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import { Switch, Route, Redirect, withRouter,BrowserRouter } from 'react-router-dom'
 import Home from './components/Home';
 import Bookmarks from './components/Bookmarks'
 
 function App() {
   return (
     <div className="App">
-      <Bookmarks />
+      <BrowserRouter>
+          <Switch>
+            
+            <Route exact path='/' component={()=><Home/>}></Route>
+            <Route exact path='/signin' component={()=><SignIn/>}></Route>
+            <Route exact path='/signup' component={()=><SignUp/>}></Route>
+            <Route exact path='/home' component={()=><Home/>}></Route>
+            <Route exact path='/bookmarks' component={()=><Bookmarks/>}></Route>
+            {/* <Route exact path='/contactus' component={()=><ContactUs/>}></Route> */}
+            <Route exact path='/newnav' component={()=><NavBar/>}></Route>
+          <Redirect to='/home'></Redirect>
+          </Switch>
+        </BrowserRouter>
     </div>
   );
 }

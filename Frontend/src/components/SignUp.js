@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +9,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
+import {useHistory} from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,6 +35,43 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const [fname,setFname] = useState("");
+  const [lname,setLname] = useState("");
+  const [regId,setRegId] = useState("");
+  const [passingYear,setPassingYear] = useState(0);
+  const [dept,setDept] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [error,setError] = useState("");
+  const history = useHistory();
+
+  function handleSubmit(){
+    axios.post('/users/signup',{
+      lname:lname,
+      fname:fname,
+      regId:regId,
+      passingYear:passingYear,
+      dept:dept,
+      emailId:email,
+      password:password
+
+    })
+    .then((res)=>{
+      if(res.data.success===true){
+        localStorage.setItem("user",JSON.stringify(res.data.user));
+        setError("");
+        // alert("succ"+res.data.user);
+        history.push('/');
+      }
+      else{
+        setError(res.data.err);
+        // alert("fail"+res.data.err);
+      }
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -56,6 +95,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="firstName"
+                onChange={(e)=>setFname(e.target.value)}
                 label="First Name"
                 autoFocus
               />
@@ -68,6 +108,7 @@ export default function SignUp() {
                 id="lastName"
                 label="Last Name"
                 name="lastName"
+                onChange={(e)=>setLname(e.target.value)}
                 autoComplete="lname"
               />
             </Grid>
@@ -79,6 +120,7 @@ export default function SignUp() {
                 id="regid"
                 label="PICT Registration ID"
                 name="regid"
+                onChange={(e)=>setRegId(e.target.value)}
                 autoComplete="regid"
               />
             </Grid>
@@ -90,6 +132,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="passingyear"
+                onChange={(e)=>setPassingYear(e.target.value)}
                 label="Passing Year"
                 autoFocus
               />
@@ -102,6 +145,7 @@ export default function SignUp() {
                 id="dept"
                 label="Department"
                 name="dept"
+                onChange={(e)=>setDept(e.target.value)}
                 autoComplete="dept"
               />
             </Grid>
@@ -112,6 +156,7 @@ export default function SignUp() {
                 fullWidth
                 id="email"
                 label="Email Address"
+                onChange={(e)=>setEmail(e.target.value)}
                 name="email"
                 autoComplete="email"
               />
@@ -124,16 +169,19 @@ export default function SignUp() {
                 name="password"
                 label="Password"
                 type="password"
+                onChange={(e)=>setPassword(e.target.value)}
                 id="password"
                 autoComplete="current-password"
               />
             </Grid>
           </Grid>
+          <p style={{color:"red"}}>{error}</p>
           <Button
-            type="submit"
+            type="button"
             fullWidth
             variant="contained"
             color="primary"
+            onClick={handleSubmit}
             className={classes.submit}
           >
             Sign Up
