@@ -40,9 +40,25 @@ const sidebar = {
 
 export default function Home() {
     const classes = useStyles();
+    const user =JSON.parse(localStorage.getItem("user"))
+    
+
+    const navbar = ()=>{
+        if(user==null){
+            return(
+                <NavBar/>
+            )
+        }
+        else{
+            return(
+                <NavBar1/>
+            )
+        }
+      }
+
     return (
         <React.Fragment>
-            <NavBar1 />
+            {user===null?<NavBar1 />:<NavBar/>}
             <CssBaseline/>
             <main>
                 <div className={classes.heroContent}>

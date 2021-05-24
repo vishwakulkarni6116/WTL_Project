@@ -8,6 +8,10 @@ import SignUp from './components/SignUp';
 import { Switch, Route, Redirect, withRouter,BrowserRouter } from 'react-router-dom'
 import Home from './components/Home';
 import Bookmarks from './components/Bookmarks'
+import PostPage from './components/PostPage';
+import CreatePost from './components/CreatePost'
+import ContactUs from './components/ContactUs';
+import { Create, PostAdd } from '@material-ui/icons';
 
 function App() {
   return (
@@ -20,8 +24,9 @@ function App() {
             <Route exact path='/signup' component={()=><SignUp/>}></Route>
             <Route exact path='/home' component={()=><Home/>}></Route>
             <Route exact path='/bookmarks' component={()=><Bookmarks/>}></Route>
-            {/* <Route exact path='/contactus' component={()=><ContactUs/>}></Route> */}
-            <Route exact path='/newnav' component={()=><NavBar/>}></Route>
+            <Route exact path='/post' component={()=><PostPage/>}></Route>
+            <Route exact path='/postadd' component={()=><CreatePost/>}></Route>
+            <Route exact path='/contactus' component={()=><ContactUs/>}></Route>
           <Redirect to='/home'></Redirect>
           </Switch>
         </BrowserRouter>

@@ -28,6 +28,9 @@ const postSchema =new Schema({
     dislikes:{
         type:Number,
         default: 0
+    },
+    date:{
+        type:String
     }
 },{
     timestamps:true

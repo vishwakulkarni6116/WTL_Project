@@ -28,6 +28,32 @@
   color: #61dafb;
 }
 
+.CreatePost {
+  padding:9em ;
+  padding-top: 3em;
+}
+
+.outlined-basic1{
+  /* border-color: green; */
+  color: green;
+}
+
+
+
+.PostPageClass h1{
+  margin: 0em;
+}
+
+.PostBody{
+  /* width: 500px; */
+  margin: auto;
+  width: 50%; 
+}
+
+.LikeButton{
+  margin: 20px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -24,24 +24,32 @@ userRouter.route('/')
 
 userRouter.route('/signup')
 .post((req,res,next)=>{
-    console.log("req.body",req.body)
-    newuser = new Users({
-      name:{
-        fname:req.body.fname,
-        lname:req.body.lname
-      },
-      emailId:req.body.emailId,
-      password:req.body.password,
-      regId:req.body.regId,
-      passingYear:req.body.passingYear,
-      dept : req.body.dept
-
-    })
+    console.log("req.body",req.body);
+    
 
     Users.findOne({emailId:req.body.emailId})
     .then(user=>{
       console.log(user)
         if(user===null){
+          console.log("not found1");
+          var fname = req.body.fname;
+          var lname = req.body.lname;
+          fname = fname[0].toUpperCase() + fname.slice(1);
+          lname = lname[0].toUpperCase() + lname.slice(1);
+          
+          console.log("hello"+fname+" "+lname);
+          newuser = new Users({
+            name:{
+              fname:fname,
+              lname:lname
+            },
+            emailId:req.body.emailId,
+            password:req.body.password,
+            regId:req.body.regId,
+            passingYear:req.body.passingYear,
+            dept : req.body.dept
+      
+          })
           console.log("not present")
           Users.create(newuser)
           .then(user=>{

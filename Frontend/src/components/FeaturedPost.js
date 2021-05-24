@@ -10,6 +10,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import Button from '@material-ui/core/Button';
+import Loading from './Loading';
 
 const useStyles = makeStyles({
   card: {
@@ -25,10 +26,17 @@ const useStyles = makeStyles({
 
 export default function FeaturedPost(props) {
   const classes = useStyles();
-  const { post } = props;
+  const post = props.post;
+  const isLoading = props.isLoading;
 
+  if(isLoading===true){
+    <Loading/>
+  }
+  else{
   return (
+    
     <Grid item >
+      {console.log(post)}
       <CardActionArea component="a" href="#">
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
@@ -37,7 +45,7 @@ export default function FeaturedPost(props) {
                 {post.title} <Typography variant="subtitle2">(in {post.tag})</Typography>
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                published on {post.date} by {post.author} 
+                published on {post.date} by {post.userId.name.fname+" "+post.userId.name.lname} 
               </Typography>
               <Typography variant="subtitle1" paragraph>
                 {post.description}
@@ -56,6 +64,7 @@ export default function FeaturedPost(props) {
       <br></br>
     </Grid>
   );
+  }
 }
 
 FeaturedPost.propTypes = {

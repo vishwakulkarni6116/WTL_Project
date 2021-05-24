@@ -1,3 +1,5 @@
+//after login
+
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,6 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {useHistory} from 'react-router'
 
 const StyledMenu = withStyles({
     paper: {
@@ -59,6 +62,8 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar1() {
   const classes = useStyles(); 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const history = useHistory();
+  const user =JSON.parse(localStorage.getItem("user"))
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,16 +72,22 @@ export default function NavBar1() {
   const handleClose = () => {
     setAnchorEl(null);
   }; 
+
+  function handleLogout(){
+    localStorage.removeItem("user")
+    history.push('/')
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-            <Button className={classes.button} color="inherit">HOME</Button>
+            <Button className={classes.button} color="inherit" href="/">HOME</Button>
             <Button className={classes.button} color="inherit">ABOUT US</Button>
-            <Button className={classes.button} color="inherit">CONTACT US</Button>
+            <Button className={classes.button} color="inherit" href="/contactus">CONTACT US</Button>
             <Typography align="right" className={classes.title}>
                 <Button aria-controls="simple-menu" onClick={handleClick} className={classes.button} color="inherit" aria-haspopup="true" >
-                  mantriaditi10
+                  {user.name.fname+" "+user.name.lname}
                 </Button>
                 <StyledMenu
                     id="customized-menu"
@@ -97,7 +108,7 @@ export default function NavBar1() {
                         </ListItemIcon>
                         <ListItemText primary="Bookmarks" />
                     </StyledMenuItem>
-                    <StyledMenuItem>
+                    <StyledMenuItem onClick={handleLogout}>
                         <ListItemIcon>
                             <ExitToAppIcon fontSize="small" />
                         </ListItemIcon>
