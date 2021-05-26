@@ -74,6 +74,7 @@ export default function NavBar1() {
   }; 
 
   function handleLogout(){
+    setAnchorEl(null);
     localStorage.removeItem("user")
     history.push('/')
   }
@@ -96,7 +97,7 @@ export default function NavBar1() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <StyledMenuItem>
+                    <StyledMenuItem onClick={()=>history.push('/createpost')}>
                         <ListItemIcon>
                             <AddIcon fontSize="small" />
                         </ListItemIcon>

@@ -49,24 +49,15 @@ import axios from 'axios';
 
 export default function Main(props) {
 
-const [featuredPosts,setFeaturedPosts] = useState([])
-const [isLoading,setIsLoading] = useState(true);
-
-useEffect(() => {
-  axios.get('/posts')
-  .then(res=>{
-    console.log(res.data);
-    setIsLoading(false);
-    setFeaturedPosts(res.data)
-  })
-  .catch(err=>console.log(err))
-},[]);
+  const posts =JSON.parse(localStorage.getItem("posts")).reverse()
+// const [featuredPosts,setFeaturedPosts] = useState([])
+// const [isLoading,setIsLoading] = useState(true);
 
   
     return (
       <Grid item xs={12} md={8}>
-        {featuredPosts.map((post) => (
-        <FeaturedPost key={post.title} post={post} isLoading={isLoading}/>
+        {posts.map((post) => (
+        <FeaturedPost key={post.title} post={post}/>
       ))}
       </Grid>
     );

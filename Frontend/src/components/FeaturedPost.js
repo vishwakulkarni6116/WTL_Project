@@ -11,6 +11,8 @@ import Hidden from '@material-ui/core/Hidden';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import Button from '@material-ui/core/Button';
 import Loading from './Loading';
+import PostPage from './PostPage';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles({
   card: {
@@ -27,17 +29,12 @@ const useStyles = makeStyles({
 export default function FeaturedPost(props) {
   const classes = useStyles();
   const post = props.post;
-  const isLoading = props.isLoading;
-
-  if(isLoading===true){
-    <Loading/>
-  }
-  else{
+  const history = useHistory()
   return (
     
     <Grid item >
       {console.log(post)}
-      <CardActionArea component="a" href="#">
+      <CardActionArea component="a" >
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
@@ -51,7 +48,7 @@ export default function FeaturedPost(props) {
                 {post.description}
               </Typography>
               <div>
-                <Button variant="outlined" color="primary">Continue Reading</Button>
+                <Button variant="outlined" color="primary" onClick={()=>history.push('/post/'+post._id)}>Continue Reading</Button>
                 <Button variant="outlined" color="primary"><BookmarksIcon/> Bookmark</Button>
               </div>
             </CardContent>
@@ -64,7 +61,7 @@ export default function FeaturedPost(props) {
       <br></br>
     </Grid>
   );
-  }
+  
 }
 
 FeaturedPost.propTypes = {

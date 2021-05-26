@@ -32,11 +32,12 @@ postRouter.route('/')
     console.log(today);
     console.log(req.body)
     newpost = new Posts({
+        userId:req.body.userId,
         title:req.body.title,
-        subtitle:req.body.title,
-        body:req.body.title,
-        tag:req.body.title,
-        image:req.body.title,
+        subtitle:req.body.subtitle,
+        body:req.body.body,
+        tag:req.body.tag,
+        image:req.body.image,
         date:today,
     })
     Posts.create(newpost)

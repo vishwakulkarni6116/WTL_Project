@@ -38,7 +38,7 @@ const sidebar = {
     ],
   };
 
-export default function Home() {
+export default function Home(props) {
     const classes = useStyles();
     const user =JSON.parse(localStorage.getItem("user"))
     
@@ -60,7 +60,7 @@ export default function Home() {
         <React.Fragment>
             {user===null?<NavBar1 />:<NavBar/>}
             <CssBaseline/>
-            <main>
+            <main >
                 <div className={classes.heroContent}>
                     <Container maxWidth="md">
                         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
@@ -76,7 +76,7 @@ export default function Home() {
             <Container maxWidth="lg">
                 <main>
                 <Grid container spacing={5} className={classes.mainGrid}>
-                    <Main  />
+                    <Main posts={props.posts} />
                     <Sidebar
                     title={sidebar.title}
                     description={sidebar.description}
