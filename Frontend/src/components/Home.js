@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@material-ui/core/Container'
 import NavBar1 from './NavBar1'
 import NavBar from './NavBar'
 import { makeStyles } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import Sidebar from './Sidebar.js';
+// import Sidebar from './Sidebar.js';
+import PropTypes from 'prop-types';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import Main from './Main';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -17,7 +20,16 @@ const useStyles = makeStyles((theme) => ({
     mainGrid: {
         marginTop: theme.spacing(3),
       },
+      sidebarAboutBox: {
+        padding: theme.spacing(2),
+        backgroundColor: theme.palette.grey[200],
+      },
+      sidebarSection: {
+        marginTop: theme.spacing(3),
+      },
 }));
+
+
 
 const sidebar = {
     title: 'FILTER THE CONTENT',
@@ -27,34 +39,28 @@ const sidebar = {
       { title: 'Machine Learning',  },
       { title: 'Crytography',  },
       { title: 'Artificial Intelligence',  },
-      { title: 'Web Developement', },
+      { title: 'Web Development', },
       { title: 'College Events',  },
       { title: 'Blockchain',  },
       { title: 'Mental Health',  },
-      { title: 'Android Developement',  },
+      { title: 'Android Development',  },
       { title: 'Books',  },
       { title: 'Philosophy',  },
       { title: 'Data Sceince',  },
+      { title: 'Show All',  },
     ],
   };
+
+
 
 export default function Home(props) {
     const classes = useStyles();
     const user =JSON.parse(localStorage.getItem("user"))
-    
+    const [maintag,setMainTag] = useState('Show All');
 
-    const navbar = ()=>{
-        if(user==null){
-            return(
-                <NavBar/>
-            )
-        }
-        else{
-            return(
-                <NavBar1/>
-            )
-        }
-      }
+    useEffect(() => {
+        console.log(maintag)
+    });
 
     return (
         <React.Fragment>
@@ -76,7 +82,8 @@ export default function Home(props) {
             <Container maxWidth="lg">
                 <main>
                 <Grid container spacing={5} className={classes.mainGrid}>
-                    <Main posts={props.posts} />
+                    {console.log(maintag)}
+                    <Main tag={maintag}/>
                     <Sidebar
                     title={sidebar.title}
                     description={sidebar.description}
@@ -87,4 +94,38 @@ export default function Home(props) {
             </Container>
         </React.Fragment>
     )
+
+    function Sidebar(props) {
+        const classes = useStyles();
+        const { tags, description, title } = props;
+      
+        return (
+          <Grid item xs={12} md={4}>
+            <Paper elevation={0} className={classes.sidebarAboutBox} >
+              <Typography variant="h6" gutterBottom>
+                {title}
+              </Typography>
+              <Typography>{description}</Typography>
+            </Paper>
+            <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
+              TAGS
+            </Typography>
+            <div>
+            {tags.map((tag) => (
+              <Button  size="small" variant="outlined" color="primary" onClick={()=>setMainTag(tag.title)}>
+                {tag.title}
+              </Button>  
+            ))}
+            </div >
+          </Grid>
+        );
+      }
+    
+      Sidebar.propTypes = {
+        tags: PropTypes.array,
+        description: PropTypes.string,
+        title: PropTypes.string,
+      };
+
 }
+

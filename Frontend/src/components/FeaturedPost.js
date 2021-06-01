@@ -33,7 +33,7 @@ export default function FeaturedPost(props) {
   return (
     
     <Grid item >
-      {console.log(post)}
+      {/* {console.log(post)} */}
       <CardActionArea component="a" >
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
@@ -49,7 +49,7 @@ export default function FeaturedPost(props) {
               </Typography>
               <div>
                 <Button variant="outlined" color="primary" onClick={()=>history.push('/post/'+post._id)}>Continue Reading</Button>
-                <Button variant="outlined" color="primary"><BookmarksIcon/> Bookmark</Button>
+                {/* <Button variant="outlined" color="primary"><BookmarksIcon/> Bookmark</Button> */}
               </div>
             </CardContent>
           </div>

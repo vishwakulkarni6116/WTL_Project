@@ -103,11 +103,11 @@ export default function NavBar1() {
                         </ListItemIcon>
                         <ListItemText primary="Create Post" />
                     </StyledMenuItem>
-                    <StyledMenuItem>
+                    <StyledMenuItem onClick={()=>history.push('/bookmarks')}>
                         <ListItemIcon>
                             <BookmarksIcon fontSize="small" />
                         </ListItemIcon>
-                        <ListItemText primary="Bookmarks" />
+                        <ListItemText primary="My Posts" />
                     </StyledMenuItem>
                     <StyledMenuItem onClick={handleLogout}>
                         <ListItemIcon>

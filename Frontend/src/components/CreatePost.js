@@ -133,8 +133,17 @@ const CreatePost = () => {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value="Academics">Academics</MenuItem>
-          <MenuItem value="Placements">Placements</MenuItem>
+          <MenuItem value="Machine Learning">Machine Learning</MenuItem>
+          <MenuItem value="Cryptography">Cryptography</MenuItem>
+          <MenuItem value="Artificial Intelligence">Artificial Intelligence</MenuItem>
+          <MenuItem value="Web Development">Web Development</MenuItem>
+          <MenuItem value="College Events">College Events</MenuItem>
+          <MenuItem value="Blockchain">Blockchain</MenuItem>
+          <MenuItem value="Mental Health">Mental Health</MenuItem>
+          <MenuItem value="Android Developement">Android Developement</MenuItem>
+          <MenuItem value="Books">Books</MenuItem>
+          <MenuItem value="Philosophy">Philosophy</MenuItem>
+          <MenuItem value="Data Science">Data Science</MenuItem>
         </Select>
       </FormControl>
         </div>

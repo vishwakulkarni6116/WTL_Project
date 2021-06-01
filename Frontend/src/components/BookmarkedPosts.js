@@ -28,7 +28,7 @@ export default function FeaturedPost(props) {
 
   return (
     <Grid item >
-      <CardActionArea component="a" href="#">
+      <CardActionArea component="a" >
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
@@ -36,13 +36,13 @@ export default function FeaturedPost(props) {
                 {post.title} <Typography variant="subtitle2">(in {post.tag})</Typography>
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                published on {post.date} by {post.author} 
+                published on {post.date} by {post.userId.name.fname+" "+post.userId.name.lname} 
               </Typography>
               <Typography variant="subtitle1" paragraph>
                 {post.description}
               </Typography>
               <div>
-                <Button variant="outlined" color="primary">Continue Reading</Button>
+                <Button variant="outlined" color="primary" href={"/post/"+post._id}>Continue Reading</Button>
               </div>
             </CardContent>
           </div>

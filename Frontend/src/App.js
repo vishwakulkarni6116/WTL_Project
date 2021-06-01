@@ -19,27 +19,40 @@ function App() {
 
   const [posts,setPosts] = useState([])
 const [isLoading,setIsLoading] = useState(true);
+const user =JSON.parse(localStorage.getItem("user"))
+
+
 
 useEffect(() => {
-  axios.get('/posts')
-  .then(res=>{
-    console.log(res.data);
-    
-
-    setPosts(res.data)
-    localStorage.setItem("posts",JSON.stringify(res.data));
-    setIsLoading(false);
-  })
-  .catch(err=>console.log(err))
+    axios.get('/posts')
+    .then(res=>{
+      console.log(res.data);
+      setPosts(res.data)
+      localStorage.setItem("posts",JSON.stringify(res.data));
+      setIsLoading(false);
+      
+    })
+    .catch(err=>console.log(err))
 },[]);
+
 
   const postWithId=({match})=>{
     return(
       <div>
-        <PostPage post={posts.filter((post)=>post._id==match.params.id)[0]}/>
+        <PostPage postId={match.params.id}/>
       </div>
     )
   }
+
+  // const BookmarkPostWithUserId=({match})=>{
+  //   // setPosts(JSON.parse(localStorage.getItem("posts")))
+  //   return(
+  //     <div>
+  //       {console.log(posts,user)}
+  //       <Bookmarks posts={posts.filter((post)=>post.userId._id==user._id)}/>
+  //     </div>
+  //   )
+  // }
 
 
   if(isLoading===true){
@@ -48,10 +61,8 @@ useEffect(() => {
     )
   }
   else{
-    console.log(posts)
   return (
     <div className="App">
-      {/* {user===null?<NavBar1 />:<NavBar/>} */}
       <BrowserRouter>
           <Switch>
             
@@ -59,6 +70,7 @@ useEffect(() => {
             <Route exact path='/signin' component={()=><SignIn/>}></Route>
             <Route exact path='/signup' component={()=><SignUp/>}></Route>
             <Route exact path='/home' component={()=><Home posts={posts}/>}></Route>
+            {/* <Route exact path='/bookmarks' component={BookmarkPostWithUserId}></Route> */}
             <Route exact path='/bookmarks' component={()=><Bookmarks/>}></Route>
             <Route exact path='/post' component={()=><PostPage/>}></Route>
             <Route exact path='/post/:id' component={postWithId}></Route>

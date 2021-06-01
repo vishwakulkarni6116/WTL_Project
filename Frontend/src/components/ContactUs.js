@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar1 from './NavBar1'
+import NavBar from './NavBar'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, CardHeader, CardContent, List, ListItem, ListItemText, Divider,Link } from '@material-ui/core'
@@ -31,10 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ContactUs() {
     const classes = useStyles();
+    const user =JSON.parse(localStorage.getItem("user"))
     const preventDefault = (event) => event.preventDefault();
     return (
         <React.Fragment>
-            <NavBar1/>
+            {user===null?<NavBar1 />:<NavBar/>}
             <main>
                 <div className={classes.heroContent}>
                     <Container maxWidth="md">
@@ -65,8 +67,8 @@ export default function ContactUs() {
                                                     </Typography>
                                                     <Typography align="center" variant="body1">
                                                         <DraftsIcon/><br/>
-                                                        <a href="mailto:support@theme-park.com"     >
-                                                            support@theme-park.com  
+                                                        <a href="mailto:support@pict-community.com"     >
+                                                            support@pict-communtiy.com  
                                                         </a>
                                                     </Typography>
                                                 </div>
@@ -100,7 +102,7 @@ export default function ContactUs() {
                                                     <Typography align="center" variant="body1">
                                                         <InstagramIcon/><br/>
                                                         <Link href="https://www.instagram.com/adi.mantri/" onClick={preventDefault}>
-                                                            @your-fav-theme-park
+                                                            @pict-community
                                                         </Link>
                                                     </Typography>
                                                 </div>

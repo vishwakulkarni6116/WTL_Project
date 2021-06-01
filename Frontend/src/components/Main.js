@@ -4,60 +4,21 @@ import FeaturedPost from './FeaturedPost';
 import Loading from './Loading';
 import axios from 'axios';
 
-// const featuredPosts = [
-//   {
-//     title: 'Post Title',
-//     date: 'Nov 12',
-//     author: 'Aditi',
-//     tag:'Web Developement',
-//     description:
-//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-//     image: 'https://source.unsplash.com/random',
-//     imageText: 'Image Text',
-//   },
-//   {
-//     title: 'Post title',
-//     date: 'Nov 11',
-//     author: 'Aditi',
-//     tag:'Machine Learning',
-//     description:
-//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-//     image: 'https://source.unsplash.com/random',
-//     imageText: 'Image Text',
-//   },
-//   {
-//     title: 'New Post',
-//     date: 'Nov 12',
-//     author: 'Aditi' ,
-//     tag:'Android Developement',     
-//     description:
-//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-//     image: 'https://source.unsplash.com/random',
-//     imageText: 'Image Text',
-//   },
-//   {
-//     title: 'Yet Another Post',
-//     date: 'Nov 12',
-//     author: 'Aditi' , 
-//     tag:'Cryptography',  
-//     description:
-//       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-//     image: 'https://source.unsplash.com/random',
-//     imageText: 'Image Text',
-//   },
-// ];
+
 
 export default function Main(props) {
 
+  // return(
+  //   <div></div>)
+  // }
   const posts =JSON.parse(localStorage.getItem("posts")).reverse()
-// const [featuredPosts,setFeaturedPosts] = useState([])
-// const [isLoading,setIsLoading] = useState(true);
+  console.log(posts)
+  var filteredPosts = posts.filter((post)=>post.tag==props.tag||props.tag=="Show All")
 
-  
     return (
       <Grid item xs={12} md={8}>
-        {posts.map((post) => (
-        <FeaturedPost key={post.title} post={post}/>
+        {filteredPosts.map((post) => (
+        <FeaturedPost key={post._id} post={post}/>
       ))}
       </Grid>
     );
